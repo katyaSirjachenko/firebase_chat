@@ -29,6 +29,7 @@ public class MainActivity extends Activity {
     private EditText metText;
     private Button mbtSent;
     private DatabaseReference mFirebaseRef;
+    private BackgroundChange backgroundChange;
 
     private List<Chat> mChats;
     private RecyclerView mRecyclerView;
@@ -56,11 +57,21 @@ public class MainActivity extends Activity {
 
         dateText.setText(Calendar.getInstance().getTime().toString()+"\n Created by Katia Siriachenko");
 
+        Button changeBackgroundButton = (Button) findViewById(R.id.changeImage);
+        backgroundChange = new BackgroundChange(mRecyclerView);
+
         /**
          * Firebase - Inicialize
          */
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mFirebaseRef = database.getReference("message");
+
+        changeBackgroundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backgroundChange.setNext();
+            }
+        });
 
 
         mbtSent.setOnClickListener(new View.OnClickListener() {
